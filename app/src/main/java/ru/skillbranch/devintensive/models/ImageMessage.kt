@@ -1,5 +1,6 @@
 package ru.skillbranch.devintensive.models
 
+import ru.skillbranch.devintensive.extension.humanizeDiff
 import java.util.*
 
 /**
@@ -14,6 +15,6 @@ class ImageMessage(
     var image: String?
 ) : BaseMessage(id, from, chat, isIncoming, date) {
     override fun formatMessage(): String {
-        TODO("Not yet implemented")
+        return "${from?.firstName} ${if (isIncoming) "получил" else "отправил"} изображение \"$image\" ${date.humanizeDiff()}"
     }
 }

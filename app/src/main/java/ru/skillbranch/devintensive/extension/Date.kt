@@ -35,7 +35,7 @@ fun Date.humanizeDiff(date: Date = Date()): String {
     val diffInt: Int = abs(diff.toInt())
     val isPositive = diff > 0
     return when (val diffToString = abs(diff)) {
-        0L, 1L * SECOND -> "только что"
+        in 0L..1L * SECOND -> "только что"
         in 1L * SECOND..45L * SECOND -> "несколько секунд назад"
         in 45L * SECOND..75L * SECOND -> "минуту назад"
         in 75L * SECOND..45 * MINUTE ->
