@@ -6,7 +6,7 @@ import java.util.*
 /**
  * Created by Drygin Nikita on 22,Ноябрь,2020
  */
-class TestMessage(
+class TextMessage(
     id: String,
     from: User?,
     chat: Chat,
