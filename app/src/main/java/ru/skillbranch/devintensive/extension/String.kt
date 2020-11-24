@@ -11,3 +11,5 @@ fun String.truncate(value: Int = 16): String {
 fun String.stripHtml(): String {
     return (this.replace("<[^>]*>".toRegex(), "")).replace("[ ]{2,}".toRegex(), " ")
 }
+
+fun String.capitalizeWords(): String = split(" ").map { it.capitalize() }.joinToString(" ")
