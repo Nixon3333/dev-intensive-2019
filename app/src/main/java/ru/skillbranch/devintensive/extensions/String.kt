@@ -1,15 +1,13 @@
 package ru.skillbranch.devintensive.extensions
 
-/**
- * Created by Drygin Nikita on 22,Ноябрь,2020
- */
-
-fun String.truncate(value: Int = 16): String {
-    return if (this.trim().length < value) this else "${this.substring(0, value).trim()}..."
+fun String.truncate(size: Int = 16): String {
+    val result = this.trim()
+    if (result.length <= size)
+        return result
+    return result.substring(0, size).trimEnd() + "..."
 }
 
-fun String.stripHtml(): String {
-    return (this.replace("<[^>]*>".toRegex(), "")).replace("[ ]{2,}".toRegex(), " ")
-}
-
-fun String.capitalizeWords(): String = split(" ").map { it.capitalize() }.joinToString(" ")
+fun String.stripHtml() = this
+        .replace(Regex("<[^>]*>"), "")
+        .replace(Regex("&amp;|&lt;|&gt;|&quot;|&apos;|&#\\d+;"), "")
+        .replace(Regex(" +"), " ")

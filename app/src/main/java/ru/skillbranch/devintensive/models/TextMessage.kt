@@ -3,9 +3,6 @@ package ru.skillbranch.devintensive.models
 import ru.skillbranch.devintensive.extensions.humanizeDiff
 import java.util.*
 
-/**
- * Created by Drygin Nikita on 22,Ноябрь,2020
- */
 class TextMessage(
     id: String,
     from: User?,
@@ -14,8 +11,7 @@ class TextMessage(
     date: Date = Date(),
     var text: String?
 ) : BaseMessage(id, from, chat, isIncoming, date) {
-    override fun formatMessage(): String {
-        return "${from?.firstName} ${if (isIncoming) "получил" else "отправил"} сообщение \"$text\" ${date.humanizeDiff()}"
-    }
-}
 
+    override fun formatMessage() = "${from?.firstName} " +
+            "${if(!isIncoming) "получил" else "отправил"} сообщение \"$text\" ${date.humanizeDiff()}"
+}
