@@ -1,4 +1,4 @@
-package ru.skillbranch.devintensive.extension
+package ru.skillbranch.devintensive.extensions
 
 /**
  * Created by Drygin Nikita on 22,Ноябрь,2020
