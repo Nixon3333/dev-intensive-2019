@@ -10,17 +10,11 @@ object Utils {
     )
 
     fun parseFullName(fullName: String?): Pair<String?, String?> {
-        val parts: List<String>? = fullName?.trim()?.replace(Regex(" +"), " ")?.split(" ")
-
-        val firstName = parts?.notEmptyOrNullAt(0)
-        val lastName = parts?.notEmptyOrNullAt(1)
-
-        return firstName to firstName
-    }
-
-    private fun List<String>.notEmptyOrNullAt(index: Int) = getOrNull(index).let {
-        if ("" == it) null
-        else it
+        val parts: List<String>? = fullName?.split(" ")
+        val firstName = parts?.getOrNull(0)
+        val lastName = parts?.getOrNull(1)
+        return if (firstName.equals("")) null to null
+        else firstName to lastName
     }
 
     fun transliteration(payload: String, divider: String = " "): String {
