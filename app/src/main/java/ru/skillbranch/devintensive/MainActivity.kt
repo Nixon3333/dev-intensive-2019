@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        benderImage = iv_bender_image
+        benderImage = iv_bender
         tvText = tv_text
         etMessage = et_message
         etMessage.setOnEditorActionListener(this)
