@@ -5,6 +5,7 @@ import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.text.method.Touch.scrollTo
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
 
     override fun onClick(v: View?) {
         if (v?.id == ivSend.id) {
-            val (phrase, color) = bender.listenAnswer(etMessage.text.toString().toLowerCase())
+            val (phrase, color) = bender.listenAnswer(etMessage.text.toString()/*.toLowerCase()*/)
             etMessage.setText("")
             val (r, g, b) = color
             benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
 
     override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
         if (p1 == EditorInfo.IME_ACTION_DONE) {
-            ivSend.performClick()
+            ivSend.callOnClick()
             hideKeyboard()
             return true
         }
