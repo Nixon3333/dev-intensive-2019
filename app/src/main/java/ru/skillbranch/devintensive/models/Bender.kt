@@ -58,13 +58,15 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         NAME("Как меня зовут?", listOf("бендер", "bender")) {
             override fun nextQuestion(): Question = PROFESSION
             override fun isValid(userAnswer: String): Pair<Boolean, String> {
-                return userAnswer[0].isUpperCase() to "Имя должно начинаться с заглавной буквы"
+                return if (userAnswer.isNotEmpty()) userAnswer[0].isUpperCase() to "Имя должно начинаться с заглавной буквы"
+                else false to "Имя должно начинаться с заглавной буквы"
             }
         },
         PROFESSION("Назови мою профессию?", listOf("сгибальщик", "bender")) {
             override fun nextQuestion(): Question = MATERIAL
             override fun isValid(userAnswer: String): Pair<Boolean, String> {
-                return userAnswer[0].isLowerCase() to "Профессия должна начинаться со строчной буквы"
+                return if (userAnswer.isNotEmpty()) userAnswer[0].isLowerCase() to "Профессия должна начинаться со строчной буквы"
+                else false to "Профессия должна начинаться со строчной буквы"
             }
         },
         MATERIAL("Из чего я сделан?", listOf("металл", "дерево", "metal", "iron", "wood")) {
