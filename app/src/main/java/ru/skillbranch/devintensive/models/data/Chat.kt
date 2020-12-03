@@ -1,11 +1,11 @@
 package ru.skillbranch.devintensive.models.data
 
 import androidx.annotation.VisibleForTesting
-import ru.skillbranch.devintensive.extensions.shortFormat
 import ru.skillbranch.devintensive.models.BaseMessage
 import ru.skillbranch.devintensive.models.ImageMessage
 import ru.skillbranch.devintensive.models.TextMessage
-import ru.skillbranch.devintensive.utils.Utils
+import ru.skillbranch.devintensive.repositories.ChatRepository
+import java.util.*
 
 data class Chat(
     val id: String,
@@ -14,52 +14,30 @@ data class Chat(
     var messages: MutableList<BaseMessage> = mutableListOf(),
     var isArchived: Boolean = false
 ) {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun unreadableMessageCount(): Int {
 
-    private fun isSingle() = members.size == 1
-
-    fun toChatItem() = if (isSingle()) {
-        val user = members.first()
-        ChatItem(
-            id,
-            user.avatar,
-            Utils.toInitials(user.firstName, user.lastName) ?: "??",
-            "${user.firstName.orEmpty()} ${user.lastName.orEmpty()}",
-            lastMessageShort().first,
-            unreadableMessageCount(),
-            lastMessageDate()?.shortFormat(),
-            user.isOnline
-        )
-    } else {
-        ChatItem(
-            id,
-            null,
-            "",
-            title,
-            lastMessageShort().first,
-            unreadableMessageCount(),
-            lastMessageDate()?.shortFormat(),
-            false,
-            ChatType.GROUP,
-            lastMessageShort().second
-        )
+        return if (id=="-1") ChatRepository.unreadableArchiveMessageCount.value?:0 else messages.count { !it.isReaded }
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun unreadableMessageCount() = messages.count { !it.isReaded }
-
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun lastMessageDate() = messages.lastOrNull()?.date
-
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun lastMessageShort(): Pair<String, String?> = when (val message = messages.lastOrNull()) {
-        is TextMessage -> message.text to message.from.firstName
-        is ImageMessage -> "${message.from.firstName} - отправил фото" to message.from.firstName
-        else -> "" to null
+    fun lastMessageDate(): Date? {
+        return when(val lastMessage = getLastMessage()){
+            null -> null
+            else -> lastMessage.date
+        }
     }
-}
 
-enum class ChatType {
-    SINGLE,
-    GROUP,
-    ARCHIVE
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun lastMessageShort(): Pair<String, String?> {
+        return when (val lastMessage = getLastMessage()) {
+            is TextMessage -> Pair(lastMessage.text ?: "", lastMessage.from.firstName)
+            is ImageMessage -> Pair("${lastMessage.from.firstName} - отправил фото", lastMessage.from.firstName)
+            else -> Pair("", null)
+        }
+    }
+
+    private fun getLastMessage():BaseMessage? = if (id == "-1") ChatRepository.lastArchiveMessage.value else messages.lastOrNull()
+
+    fun isSingle(): Boolean = members.size == 1
 }
