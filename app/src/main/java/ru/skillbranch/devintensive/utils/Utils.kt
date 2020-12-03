@@ -10,11 +10,17 @@ object Utils {
     )
 
     fun parseFullName(fullName: String?): Pair<String?, String?> {
-        val parts: List<String>? = fullName?.split(" ")
-        val firstName = parts?.getOrNull(0)
-        val lastName = parts?.getOrNull(1)
-        return if (firstName.equals("")) null to null
-        else firstName to lastName
+        val parts: List<String>? = fullName?.trim()?.replace(Regex(" +"), " ")?.split(" ")
+
+        val firstName = parts?.notEmptyOrNullAt(0)
+        val lastName = parts?.notEmptyOrNullAt(1)
+
+        return firstName to lastName
+    }
+
+    private fun List<String>.notEmptyOrNullAt(index: Int) = getOrNull(index).let {
+        if ("" == it) null
+        else it
     }
 
     fun transliteration(payload: String, divider: String = " "): String {
@@ -36,4 +42,44 @@ object Utils {
         !firstName.isNullOrBlank() && !lastName.isNullOrBlank() -> firstName[0].toUpperCase() + lastName[0].toUpperCase().toString()
         else -> throw IllegalStateException("Incorrect state in 'when' expression")
     }
+
+    fun isRepositoryValid(repository: String): Boolean {
+        if (repository.isEmpty()) return true
+        var repo = repository
+
+        if (repo.startsWith("https://")) {
+            repo = repo.replace("https://", "")
+        }
+        if (repo.startsWith("www.")) {
+            repo = repo.replace("www.", "")
+        }
+
+        if (!repo.startsWith("github.com/")) {
+            return false
+        }
+
+        repo = repo.replace("github.com/", "")
+
+        repoExcludeSet.forEach {
+            if (repo.startsWith(it) && (repo.length == it.length || repo[it.length] == '/')) return false
+        }
+
+        return Regex("^[A-Za-z0-9]+(-[A-Za-z0-9]+)*/?$").matches(repo)
+    }
+
+    private val repoExcludeSet = setOf(
+        "enterprise",
+        "features",
+        "topics",
+        "collections",
+        "trending",
+        "events",
+        "marketplace",
+        "pricing",
+        "nonprofit",
+        "customer-stories",
+        "security",
+        "login",
+        "join"
+    )
 }

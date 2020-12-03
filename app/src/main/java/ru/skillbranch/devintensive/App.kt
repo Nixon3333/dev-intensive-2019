@@ -5,22 +5,22 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import ru.skillbranch.devintensive.repositories.PreferencesRepository
 
-/**
- * Created by Drygin Nikita on 30,Ноябрь,2020
- */
-class App: Application() {
-    companion object{
-        private var instance: App? = null
-
-        fun applicationContext(): Context = instance!!.applicationContext
-    }
+class App : Application() {
 
     init {
         instance = this
     }
 
     override fun onCreate() {
-        setTheme(R.style.SplashTheme)
         super.onCreate()
+        AppCompatDelegate.setDefaultNightMode(PreferencesRepository.theme)
+    }
+
+    companion object {
+        private lateinit var instance: App
+
+        fun applicationContext(): Context {
+            return instance.applicationContext
+        }
     }
 }
