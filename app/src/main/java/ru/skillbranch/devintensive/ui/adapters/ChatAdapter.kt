@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.item_chat_group.*
 import kotlinx.android.synthetic.main.item_chat_single.*
 import kotlinx.android.synthetic.main.item_chat_single.sv_indicator
 import ru.skillbranch.devintensive.R
-import ru.skillbranch.devintensive.extensions.visible
 import ru.skillbranch.devintensive.models.data.ChatItem
 import ru.skillbranch.devintensive.models.data.ChatType
 
@@ -93,14 +92,14 @@ class ChatAdapter(
                     .into(iv_avatar_single)
             }
 
-            sv_indicator.visible = item.isOnline
+            sv_indicator.visibility = if (item.isOnline) View.VISIBLE else View.GONE
             with(tv_date_single) {
-                visible = item.lastMessageDate != null
+                visibility = if (item.lastMessageDate != null) View.VISIBLE else View.GONE
                 text = item.lastMessageDate
             }
 
             with(tv_counter_single) {
-                visible = item.messageCount > 0
+                visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
                 text = item.messageCount.toString()
             }
 
@@ -129,12 +128,12 @@ class ChatAdapter(
             iv_avatar_group.initials = item.initials
 
             with(tv_date_group) {
-                visible = item.lastMessageDate != null
+                visibility = if (item.lastMessageDate != null) View.VISIBLE else View.GONE
                 text = item.lastMessageDate
             }
 
             with(tv_counter_group) {
-                visible = item.messageCount > 0
+                visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
                 text = item.messageCount.toString()
             }
 
@@ -142,7 +141,7 @@ class ChatAdapter(
             tv_message_group.text = item.shortDescription
 
             with(tv_message_author) {
-                visible = item.messageCount > 0
+                visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
                 text = item.author
             }
 
