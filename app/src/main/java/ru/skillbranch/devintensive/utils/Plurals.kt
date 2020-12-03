@@ -1,6 +1,6 @@
-package ru.skillbranch.devintensive.extensions
+package ru.skillbranch.devintensive.utils
 
-import ru.skillbranch.devintensive.extensions.Plurals.*
+import ru.skillbranch.devintensive.utils.Plurals.*
 
 enum class Plurals {
     ONE,

@@ -1,9 +1,8 @@
-package ru.skillbranch.devintensive.extensions
+package ru.skillbranch.devintensive.utils
 
+import ru.skillbranch.devintensive.extensions.shortFormat
 import ru.skillbranch.devintensive.models.data.Chat
 import ru.skillbranch.devintensive.models.data.ChatItem
-import ru.skillbranch.devintensive.models.data.ChatType
-import ru.skillbranch.devintensive.utils.Utils
 
 fun Chat.toChatItem(): ChatItem {
     return if (isSingle()) {

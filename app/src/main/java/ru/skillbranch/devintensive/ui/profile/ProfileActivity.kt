@@ -11,7 +11,6 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile_constraint.*
@@ -28,7 +27,7 @@ import kotlinx.android.synthetic.main.activity_profile_constraint.tv_respect
 import kotlinx.android.synthetic.main.activity_profile_constraint.wr_about
 import kotlinx.android.synthetic.main.activity_profile_constraint.wr_repository
 import ru.skillbranch.devintensive.R
-import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.utils.Profile
 import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 

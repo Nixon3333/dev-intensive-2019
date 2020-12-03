@@ -13,7 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_archive.*
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import ru.skillbranch.devintensive.R
-import ru.skillbranch.devintensive.extensions.applyStyle
+import ru.skillbranch.devintensive.utils.applyStyle
 import ru.skillbranch.devintensive.ui.BaseActivity
 import ru.skillbranch.devintensive.ui.adapters.ChatAdapter
 import ru.skillbranch.devintensive.ui.adapters.ChatItemTouchHelperCallback

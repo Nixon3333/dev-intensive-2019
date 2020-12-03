@@ -3,8 +3,8 @@ package ru.skillbranch.devintensive.repositories
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatDelegate
-import ru.skillbranch.devintensive.App
-import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.utils.App
+import ru.skillbranch.devintensive.utils.Profile
 
 object PreferencesRepository {
     private const val FIRST_NAME = "FIRST_NAME"
@@ -24,13 +24,14 @@ object PreferencesRepository {
 
     fun getAppTheme(): Int = prefs.getInt(APP_THEME,AppCompatDelegate.MODE_NIGHT_NO)
 
-    fun getProfile(): Profile = Profile(
-            prefs.getString(FIRST_NAME,"")?:"",
-            prefs.getString(LAST_NAME,"")?:"",
-            prefs.getString(ABOUT,"")?:"",
-            prefs.getString(REPOSITORY,"")?:"",
-            prefs.getInt(RATING,0),
-            prefs.getInt(RESPECT,0)
+    fun getProfile(): Profile =
+        Profile(
+            prefs.getString(FIRST_NAME, "") ?: "",
+            prefs.getString(LAST_NAME, "") ?: "",
+            prefs.getString(ABOUT, "") ?: "",
+            prefs.getString(REPOSITORY, "") ?: "",
+            prefs.getInt(RATING, 0),
+            prefs.getInt(RESPECT, 0)
         )
 
     fun saveProfile(profile: Profile) {

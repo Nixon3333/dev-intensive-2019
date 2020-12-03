@@ -1,7 +1,6 @@
 package ru.skillbranch.devintensive.utils
 
 import android.util.Log
-import ru.skillbranch.devintensive.extensions.TimeUnits
 import ru.skillbranch.devintensive.extensions.add
 import ru.skillbranch.devintensive.models.BaseMessage
 import ru.skillbranch.devintensive.models.TextMessage
@@ -486,7 +485,7 @@ object DataGenerator {
         return when {
             isVisited -> {
                 val offset = (0..Short.MAX_VALUE).random().toLong()
-                Pair(Date().add(-offset, TimeUnits.MINUTE), false)
+                Pair(Date().add(-offset.toInt(), TimeUnits.MINUTE), false)
             }
 
             isNow -> Pair(Date(), true)

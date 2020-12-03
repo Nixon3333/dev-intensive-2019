@@ -1,4 +1,4 @@
-package ru.skillbranch.devintensive
+package ru.skillbranch.devintensive.utils
 
 import android.app.Application
 import android.content.Context
@@ -7,7 +7,7 @@ import ru.skillbranch.devintensive.repositories.PreferencesRepository
 
 class App : Application() {
     companion object {
-        private var instanse:App? = null
+        private var instanse: App? = null
 
         fun applicationContext(): Context {
             return instanse!!.applicationContext

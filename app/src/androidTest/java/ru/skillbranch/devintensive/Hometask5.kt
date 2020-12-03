@@ -25,7 +25,7 @@ import org.hamcrest.TypeSafeMatcher
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import ru.skillbranch.devintensive.extensions.TimeUnits
+import ru.skillbranch.devintensive.utils.TimeUnits
 import ru.skillbranch.devintensive.extensions.add
 import ru.skillbranch.devintensive.models.TextMessage
 import ru.skillbranch.devintensive.models.data.Chat

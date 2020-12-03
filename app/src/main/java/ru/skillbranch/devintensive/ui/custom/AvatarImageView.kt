@@ -17,6 +17,7 @@ import androidx.annotation.Dimension.DP
 import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.AppCompatImageView
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.utils.InitialsDrawable
 import kotlin.math.min
 import kotlin.math.pow
 
@@ -38,11 +39,18 @@ class AvatarImageView @JvmOverloads constructor(
     var initials: String? = null
         set(value) {
             if (field == value) return
-            if (value != null) {
-                setImageDrawable(InitialsDrawable(value, initialsSize, layoutParams.width, context))
-            } else {
+            /*if (value != null) {
+                setImageDrawable(
+                    InitialsDrawable(
+                        value,
+                        initialsSize,
+                        layoutParams.width,
+                        context
+                    )
+                )
+            } else {*/
                 setImageResource(R.drawable.avatar_default)
-            }
+            /*}*/
             field = value
         }
 
@@ -54,7 +62,7 @@ class AvatarImageView @JvmOverloads constructor(
     private val borderPaint = Paint()
     private val circleBackgroundPaint = Paint()
 
-    private val initialsSize: Int
+    //private val initialsSize: Int
     private var borderColor = DEFAULT_BORDER_COLOR
     private var borderWidthDp = DEFAULT_BORDER_WIDTH
     private val circleBackgroundColor = DEFAULT_CIRCLE_BACKGROUND_COLOR
@@ -102,7 +110,7 @@ class AvatarImageView @JvmOverloads constructor(
     }
 
     init {
-        val a = context.obtainStyledAttributes(attrs, R.styleable.AvatarImageView, defStyle, 0)
+        /*val a = context.obtainStyledAttributes(attrs, R.styleable.AvatarImageView, defStyle, 0)
 
         val borderWidth = a.getDimensionPixelSize(
             R.styleable.AvatarImageView_aiv_borderWidth,
@@ -123,7 +131,7 @@ class AvatarImageView @JvmOverloads constructor(
         if (isSetupPending) {
             setup()
             isSetupPending = false;
-        }
+        }*/
     }
 
     override fun getScaleType() = SCALE_TYPE
