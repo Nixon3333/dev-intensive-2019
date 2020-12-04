@@ -1,15 +1,17 @@
 package ru.skillbranch.devintensive.utils
 
 import android.util.Log
+import ru.skillbranch.devintensive.extensions.TimeUnits
 import ru.skillbranch.devintensive.extensions.add
 import ru.skillbranch.devintensive.models.BaseMessage
 import ru.skillbranch.devintensive.models.TextMessage
-import ru.skillbranch.devintensive.models.data.Chat
 import ru.skillbranch.devintensive.models.data.User
+import ru.skillbranch.devintensive.models.data.Chat
 import java.util.*
 import kotlin.random.Random
 
 object DataGenerator {
+
     private val maleNames = listOf(
         "Robin",
         "James",
@@ -113,6 +115,7 @@ object DataGenerator {
         "Jimmy",
         "Antonio"
     )
+
     private val femaleNames = listOf(
         "Mary",
         "Patricia",
@@ -214,6 +217,7 @@ object DataGenerator {
         "Lillian",
         "Emily"
     )
+
     private val lastNames = listOf(
         "Smith",
         "Johnson",
@@ -316,6 +320,7 @@ object DataGenerator {
         "Diaz",
         "Hayes"
     )
+
     private val maleAvatars = listOf(
         "https://skill-branch.ru/resources/dev-intensive-2019/avatars/man0.png",
         "https://skill-branch.ru/resources/dev-intensive-2019/avatars/man1.png",
@@ -328,6 +333,7 @@ object DataGenerator {
         "https://skill-branch.ru/resources/dev-intensive-2019/avatars/man8.png",
         "https://skill-branch.ru/resources/dev-intensive-2019/avatars/man9.png"
     )
+
     private val femaleAvatars = listOf(
         "https://skill-branch.ru/resources/dev-intensive-2019/avatars/woman0.png",
         "https://skill-branch.ru/resources/dev-intensive-2019/avatars/woman1.png",
@@ -390,7 +396,7 @@ object DataGenerator {
         return list
     }
 
-    public fun generateChats(count: Int, hasGroups: Boolean = false): List<Chat> {
+    fun generateChats(count: Int, hasGroups: Boolean = false): List<Chat> {
         val list = mutableListOf<Chat>()
         val users = generateUsers(count)
         for (user in users) {
@@ -418,7 +424,7 @@ object DataGenerator {
         return list
     }
 
-    public fun generateChatsWithOffset(startId: Int, count: Int): List<Chat> {
+    fun generateChatsWithOffset(startId: Int, count: Int): List<Chat> {
         val list = mutableListOf<Chat>()
         val users = generateUsers(count)
         for (user in users) {
@@ -445,7 +451,7 @@ object DataGenerator {
                     chat,
                     true,
                     user.lastVisit ?: Date(),
-                    (0..10).random()>0,
+                    true,
                     randomTextPayload()
                 )
             )
@@ -484,13 +490,12 @@ object DataGenerator {
         val isNow = Random.nextBoolean()
         return when {
             isVisited -> {
-                val offset = (0..Short.MAX_VALUE).random().toLong()
-                Pair(Date().add(-offset.toInt(), TimeUnits.MINUTE), false)
+                val offset = (0..Short.MAX_VALUE).random()
+                Pair(Date().add(-offset, TimeUnits.MINUTE), false)
             }
 
             isNow -> Pair(Date(), true)
             else -> Pair(null, false)
         }
     }
-
 }
