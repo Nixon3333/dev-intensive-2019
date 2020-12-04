@@ -1,5 +1,6 @@
 package ru.skillbranch.devintensive.utils
 
+import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.extensions.shortFormat
 import ru.skillbranch.devintensive.models.data.Chat
 import ru.skillbranch.devintensive.models.data.ChatItem
@@ -31,4 +32,10 @@ fun Chat.toChatItem(): ChatItem {
             lastMessageShort().second
         )
     }
+}
+
+enum class ChatType(val layoutId:Int) {
+    SINGLE(R.layout.item_chat_single),
+    GROUP(R.layout.item_chat_group),
+    ARCHIVE(R.layout.item_chat_archive)
 }
